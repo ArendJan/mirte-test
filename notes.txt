@@ -1,0 +1,30 @@
+env set bootargs ${bootargs} root=/dev/nfs ip=10.42.0.133:::::eth0 nfsroot=10.42.0.1:/home/arendjan/mirte/mirte-test/nfsroot,nfsvers=3,tcp rw nfsrootdebug
+env set bootcmd 'tftp 0x2000000 3bImage.img; tftp 0x4200000 rk3566-orangepi-3b-v2.1.dtb; booti 0x2000000 - 0x4200000'
+boot
+
+
+ip=10.42.0.133:::::fe010000.ethernet
+
+
+env set bootargs ${bootargs} root=/dev/nfs ip=10.42.0.133:::::eth0 nfsroot=10.42.0.1:/mirte/mirte-test/nfsroot,nfsvers=3,tcp rw nfsrootdebug; env set bootcmd 'tftp 0x40080000 zero2Image; tftp 0x43000000 sun50i-h616-orangepi-zero2.dtb; booti 0x40080000 - 0x43000000'; boot
+
+ nfs enabled kernel, cp /boot/Image naar /shr/tftp/0A2A0085.img
+ 
+
+
+ ip=10.42.1.133:::::rgmii_phy1 
+
+  ip=dhcp
+
+   ip=10.42.0.133:::::eth0 
+
+
+
+
+in config:
+stmmac aanzetten -> ethernet chip op boot
+nfs v3 aanzetten, anders geen nfs
+root_nfs ook aanzetten
+
+cp -rp vanaf img naar nfsroot
+p voor keep permissions, anders kan mirte niet inloggen
