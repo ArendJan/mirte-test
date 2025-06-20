@@ -24,7 +24,7 @@ run distro_bootcmd; env set bootargs ${bootargs} root=/dev/nfs ip=10.42.0.133:::
    - nfs_v3 = y
    - ethernet driver (to figure it out: ```ls -1 /sys/class/net/ | grep -v lo | xargs -n1 -I{} bash -c 'echo -n {} :" " ; basename `readlink -f /sys/class/net/{}/device/driver`'```)
      - stmmac with CONFIG_DWMAC_SUNXI or CONFIG_DWMAC_SUN8I for zero2
-   - (copy the patch file?)
+   - if you want to compile it from a different repo (like mirte_base_images), copy the new patch file to userpatches/u-boot/u-boot-$manufacturer/ for it to work
  - compile for your board
  - flash to sd card
  - test the sd card that the kernel and everything works with your special image
@@ -32,6 +32,6 @@ run distro_bootcmd; env set bootargs ${bootargs} root=/dev/nfs ip=10.42.0.133:::
  - delete the armbi_root partition from the sd, this will make it seem that it's empty, but the bootloader will still be there.
  - mount the .img file
  - copy the /boot/Image to /srv/tftp/$image_name
- - copy the /boot/dtb/<manufacturer(allwinner/rockchip)>/$chip-board-name.dtb to /srv/tftp/ (sun50i-h616-orangepi-zero2.dtb for zero2)
+ - copy the /boot/dtb/\$manufacturer(allwinner/rockchip)/$chip-board-name.dtb to /srv/tftp/ (sun50i-h616-orangepi-zero2.dtb for zero2)
  - copy the complete image to the folder that you set as nfs root (needs to be read-writable). Use cp -rp to preserve permissions, otherwise it will not boot correctly.
  - give the board power! It should download the image file after trying the other possible hardware storages (unable to as there is no partition anymore), then download the dtb (device tree) and boot the kernel with the nfs parameters, and the image will boot normally.
